@@ -6,19 +6,23 @@ import Orphanage from '../models/Orphanage';
 export default {
 
     async show(request: Request, response: Response) {
-        // Pegando o id dos Route params 
+        // Pegando o id dos Route params
         const { id } = request.params;
 
         const orphanagesRepository = getRepository(Orphanage);
 
-        const orphanages = await orphanagesRepository.findOneOrFail(id);
+        const orphanages = await orphanagesRepository.findOneOrFail(id, {
+            relations: ['images'] // Para que as imagens associadas a um orfanato apareçam no json, passamos o nome da relação no campo relations
+        });
         return response.json(orphanages);
     },
 
     async index(request: Request, response: Response) {
         const orphanagesRepository = getRepository(Orphanage);
 
-        const orphanage = await orphanagesRepository.find();
+        const orphanage = await orphanagesRepository.find({
+            relations: ['images'] // Para que as imagens associadas a um orfanato apareçam no json, passamos o nome da relação no campo relations
+        });
         return response.json(orphanage);
     },
 
