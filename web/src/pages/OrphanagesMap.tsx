@@ -17,7 +17,6 @@ interface Orphanage {
 }
 
 function OrphanagesMap() {
-
     const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
     useEffect(() => {
